@@ -1,0 +1,116 @@
+@import url("base.css");
+
+
+.header {
+    background-color: var(--brand-dark);
+    padding: 1rem 0;
+    position: sticky; top: 0; z-index: 1000;
+    transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;    
+}
+
+/* --- ESTADO DO HEADER AO ROLAR --- */
+.header.header-scrolled {
+    background-color: white;
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.header-container {
+    max-width: 1200px; margin: 0 auto; padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* --- Troca de Logo --- */
+.header-logo img { display: block; height: 40px; width: auto; }
+.header-logo .logo-scrolled { display: none; }
+.header.header-scrolled .header-logo .logo-default { display: none; }
+.header.header-scrolled .header-logo .logo-scrolled { display: block; }
+
+/* --- ESTILOS DO MENU MOBILE (Padrão) --- */
+.header-toggle {
+    background: none; border: none; padding: 0;
+    color: var(--slate-100);
+    cursor: pointer;
+    z-index: 9999;
+    transition: color 0.4s ease;
+}
+.header-scrolled .header-toggle { color: var(--brand-dark); }
+.header-toggle i { font-size: 2rem; line-height: 1; vertical-align: middle; }
+.header-toggle .icon-close { display: none; }
+.nav-open .header-toggle .icon-menu { display: none; }
+.nav-open .header-toggle .icon-close { display: block; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;}
+
+.header-nav {
+    display: none;
+    position: fixed; top: 0; right: 0; bottom: 0; left: 0;
+    background-color: var(--brand-dark);
+    flex-direction: column; justify-content: center; align-items: center;
+    z-index: 9998;
+    /* Margens incorretas removidas */
+}
+.nav-open .header-nav { display: flex; }
+
+.header-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; text-align: center; gap: 2rem; }
+.header-nav a { color: var(--slate-100); text-decoration: none; font-size: 1.5rem; font-weight: 500; transition: transform 0.2s ease, color 0.3s ease; }
+
+/* Efeito de hover CORRIGIDO para mobile */
+.header-nav a:hover {
+    color: var(--brand-red);
+    transform: scale(0.95); /* Efeito de encolher, e não de aumentar */
+}
+
+/* Estilos do botão de orçamento PARA O MENU MOBILE */
+.header-nav .btn-orcamento {
+    display: inline-block;
+    padding: 12px 28px;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    background-color: var(--brand-red);
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+}
+.header-nav .btn-orcamento:hover {
+    color: white;
+}
+
+/* --- ESTILOS PARA DESKTOP (Telas maiores que 769px) --- */
+@media (min-width: 769px) {
+    .header-toggle { display: none; }
+    .header-nav { display: flex; position: static; flex-direction: row; background: none; width: auto; }
+    .header-nav ul { flex-direction: row; gap: 1.8rem; align-items: center; }
+
+    .header-nav a {
+        font-size: 1rem;
+        color: var(--slate-100);
+        transition: transform 0.2s ease, color 0.4s ease;
+    }
+    .header-scrolled .header-nav a { color: var(--brand-dark); }
+    .header-nav a:hover {
+        color: var(--brand-red);
+        transform: scale(0.92);
+    }
+
+    /* Estilos do botão de orçamento PARA O DESKTOP */
+    .header-nav ul li .btn-orcamento {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 8px 16px; /* Volta a ser menor */
+        font-size: 0.95rem;
+        margin: 0; /* Remove a margem do mobile */
+    }
+    .btn-orcamento:hover { color: var(--slate-100); background-color: var(--brand-red-hover); transform: translateY(-2px); }
+
+    /* Estilo do link ativo */
+    .header-nav a[aria-current="page"] {
+        color: var(--brand-red);
+        font-weight: bold;
+    }
+    .header-scrolled .header-nav a[aria-current="page"] { color: var(--brand-red); }
+}

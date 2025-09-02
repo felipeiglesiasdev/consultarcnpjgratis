@@ -1,0 +1,113 @@
+/* Importa as variáveis e estilos base */
+@import url("base.css");
+
+.footer {
+    background-color: var(--brand-dark);
+    color: var(--slate-100);
+    padding: 4rem 0 0; /* 64px de padding em cima, 0 embaixo */
+    font-size: 0.95rem;
+}
+
+.footer a {
+    color: var(--slate-100);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: var(--brand-red);
+}
+
+.footer-container {
+    display: grid;
+    /* Cria colunas responsivas: em telas grandes, até 4 colunas; em pequenas, elas quebram */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem; /* Espaçamento entre as colunas */
+    padding-bottom: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.footer-col .footer-logo {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.footer-description {
+    color: var(--gray-400, #9ca3af); /* Cor suave para a descrição */
+    line-height: 1.6;
+}
+
+.footer-col-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: white;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* Espaço entre os links */
+}
+
+.footer-social {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-social a i {
+    font-size: 1.5rem; /* Tamanho dos ícones */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-social a:hover i {
+    transform: scale(1.1);
+}
+
+/* --- Barra Inferior --- */
+.footer-bottom {
+    border-top: 1px solid var(--gray-700);
+    padding: 1.5rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--gray-400, #9ca3af);
+}
+
+.footer-bottom ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* --- Ajustes para telas menores --- */
+@media (max-width: 768px) {
+    .footer-container {
+        text-align: center;
+    }
+    .footer-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+}

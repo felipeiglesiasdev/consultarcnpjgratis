@@ -1,0 +1,80 @@
+@import url("base.css");
+
+/* Herda estilos comuns de outras páginas */
+@import url("home.css");
+@import url("consulta-cnpj.css");
+
+/* --- 1. Hero Section --- */
+.hero-section-lists {
+    background-color: var(--brand-dark);
+    color: white;
+    padding: 4rem 1rem;
+}
+
+.hero-lists-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-lists-content { flex: 1; }
+.hero-lists-image { flex: 1; display: none; } /* Escondido por padrão, aparece em telas maiores */
+.hero-lists-image img { max-width: 100%; border-radius: 8px; }
+
+/* --- 3. Filters Section --- */
+.filters-section {
+    padding: 5rem 1rem;
+    background-color: var(--slate-100);
+}
+.section-subtitle {
+    text-align: center;
+    max-width: 600px;
+    margin: -2.5rem auto 3rem auto;
+    color: var(--gray-600);
+}
+.filters-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.filter-item {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 500;
+    color: var(--brand-dark);
+    transition: all 0.3s ease;
+}
+.filter-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--brand-red);
+}
+.filter-item i {
+    font-size: 1.8rem;
+    color: var(--brand-red);
+}
+
+/* --- Responsividade --- */
+@media (min-width: 769px) {
+    .hero-lists-content {
+        text-align: left;
+    }
+    .hero-buttons {
+        justify-content: flex-start;
+    }
+}
+
+@media (min-width: 992px) {
+    .hero-lists-image {
+        display: block; /* Mostra a imagem em telas maiores */
+    }
+}

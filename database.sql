@@ -1,4 +1,4 @@
-CREATE DATABASE consultarcnpjgratis_app
+CREATE DATABASE consultarcnpjgratis
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 
@@ -84,7 +84,7 @@ CREATE TABLE estabelecimentos (
     PRIMARY KEY (cnpj_basico, cnpj_ordem, cnpj_dv),
 
     -- Definição das Chaves Estrangeiras
-    FOREIGN KEY (cnpj_basico) REFERENCES empresas(cnpj_basico),
+    FOREIGN KEY (cnpj_basico) REFERENCES empresas(cnpj_basico) ON DELETE CASCADE,
     FOREIGN KEY (pais) REFERENCES paises(codigo),
     FOREIGN KEY (municipio) REFERENCES municipios(codigo),
     FOREIGN KEY (cnae_fiscal_principal) REFERENCES cnaes(codigo)
@@ -101,7 +101,7 @@ CREATE TABLE simples (
     data_exclusao_do_mei DATE,
 
     -- Definição da Chave Estrangeira
-    FOREIGN KEY (cnpj_basico) REFERENCES empresas(cnpj_basico)
+    FOREIGN KEY (cnpj_basico) REFERENCES empresas(cnpj_basico) ON DELETE CASCADE
 );
 
 -- 9. Tabela de Sócios
@@ -120,7 +120,7 @@ CREATE TABLE socios (
     faixa_etaria INT,
 
     -- Definição das Chaves Estrangeiras
-    FOREIGN KEY (cnpj_basico) REFERENCES empresas(cnpj_basico),
+    FOREIGN KEY (cnpj_basico) REFERENCES empresas(cnpj_basico) ON DELETE CASCADE,
     FOREIGN KEY (qualificacao_socio) REFERENCES qualificacoes_socios(codigo),
     FOREIGN KEY (qualificacao_representante_legal) REFERENCES qualificacoes_socios(codigo),
     FOREIGN KEY (pais) REFERENCES paises(codigo)
