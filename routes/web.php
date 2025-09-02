@@ -17,4 +17,8 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/listas-segmentadas', 'listSegmentadas')->name('listas-segmentadas');
 });
 
+// Rota que RECEBE o formulário de consulta
+Route::post('/consultar-cnpj', [CnpjController::class, 'consultar'])->name('cnpj.consultar');
 
+// Rota que EXIBE os dados do CNPJ encontrado
+Route::get('/cnpj/{cnpj}', [CnpjController::class, 'show'])->name('cnpj.show');

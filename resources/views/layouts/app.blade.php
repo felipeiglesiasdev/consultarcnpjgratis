@@ -25,5 +25,6 @@
 
     @include('components.footer')
     <script src="{{ asset('js/header.js') }}"></script>
+    <script src="{{ asset('js/consulta-cnpj.js') }}"></script>
 </body>
 </html>

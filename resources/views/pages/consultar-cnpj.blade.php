@@ -19,13 +19,22 @@
                     name="cnpj" 
                     id="cnpj" 
                     class="search-input" 
-                    placeholder="Digite apenas os 14 números do CNPJ" 
-                    pattern="\d{14}"
-                    required 
+                    placeholder="00.000.000/0000-00"
                     title="Por favor, digite 14 números.">
             </div>
             <button type="submit" class="btn btn-primary search-button">Consultar</button>
         </form>
+        <div id="error-popup" class="error-popup">
+            <div class="popup-content">
+                <span class="popup-close" id="popup-close">&times;</span>
+                <i class="bi bi-exclamation-triangle"></i>
+                <h4>CNPJ Incompleto</h4>
+                <p>Por favor, digite os 14 números do CNPJ para continuar.</p>
+                
+                {{-- BOTÃO ADICIONADO --}}
+                <button id="popup-confirm" class="btn btn-primary popup-confirm-btn">Entendido!</button>
+            </div>
+        </div>
     </div>
 </section>
 
