@@ -7,9 +7,16 @@
 
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/consulta-cnpj.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/listas-segmentadas.css') }}">
+    
+    @if (request()->routeIs('home'))
+        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    @elseif (request()->routeIs('consultar-cnpj'))
+        <link rel="stylesheet" href="{{ asset('css/consulta-cnpj.css') }}">
+    @elseif (request()->routeIs('listas-segmentadas'))
+        <link rel="stylesheet" href="{{ asset('css/listas-segmentadas.css') }}">
+    @elseif (request()->routeIs('cnpj.show'))
+        <link rel="stylesheet" href="{{ asset('css/cnpj-show.css') }}">
+    @endif
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
@@ -26,5 +33,6 @@
     @include('components.footer')
     <script src="{{ asset('js/header.js') }}"></script>
     <script src="{{ asset('js/consulta-cnpj.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>
