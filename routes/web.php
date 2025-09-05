@@ -23,3 +23,6 @@ Route::post('/consultar-cnpj', [CnpjController::class, 'consultar'])->name('cnpj
 
 // Rota que EXIBE os dados do CNPJ encontrado
 Route::get('/cnpj/{cnpj}', [CnpjController::class, 'show'])->name('cnpj.show');
+
+// Rota para receber o formulário de solicitação de remoção
+Route::post('/solicitar-remocao', [SolicitacaoRemocaoController::class, 'store'])->name('solicitacao.remocao.store');

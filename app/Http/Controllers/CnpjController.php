@@ -135,6 +135,66 @@ class CnpjController extends Controller
         $empresasSemelhantes = $this->findSimilarCompanies($estabelecimento);
         // --- FIM DA LÓGICA ---
 
+
+        // --- PREPARAÇÃO DOS DADOS ESTRUTURADOS (JSON-LD) ---
+        $structuredData = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => $empresa->razao_social,
+            'foundingDate' => $estabelecimento->data_inicio_atividade,
+            'legalName' => $empresa->razao_social,
+            'url' => url()->current(),
+            'vatID' => $cnpjApenasNumeros,
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => $estabelecimento->tipo_logradouro . ' ' . ($estabelecimento->logradouro ?? '') . ', ' . ($estabelecimento->numero ?? 'S/N'),
+                'addressLocality' => $estabelecimento->municipioRel->descricao ?? '',
+                'addressRegion' => $estabelecimento->uf ?? '',
+                'postalCode' => $estabelecimento->cep,
+                'addressCountry' => 'BR',
+            ],
+        ];
+
+        // Adiciona o telefone de forma condicional e segura
+        if (!empty($estabelecimento->ddd1) && !empty($estabelecimento->telefone1)) {
+            $structuredData['telephone'] = '+55' . $estabelecimento->ddd1 . $estabelecimento->telefone1;
+        }
+
+        if (!empty($estabelecimento->correio_eletronico)) {
+            $structuredData['email'] = $estabelecimento->correio_eletronico;
+        }
+
+
+        // --- NOVO: PREPARAÇÃO DOS DADOS OPEN GRAPH (OG Tags) ---
+        $ogData = [
+            'og:title' => $empresa->razao_social . ' - CNPJ ' . $this->formatarCnpj($cnpjApenasNumeros),
+            'og:description' => 'Consulte gratuitamente os dados cadastrais da empresa ' . $empresa->razao_social . ', incluindo CNPJ, endereço, atividades e situação cadastral.',
+            'og:url' => url()->current(),
+            'og:type' => 'website',
+            'og:site_name' => 'CNPJ Total', // Ou o nome do seu site
+            'og:locale' => 'pt_BR',
+            'og:image' => asset('images/logo/logo-preto-vermelho.webp'),
+            'og:image:type' => 'image/png', 
+            'og:image:width' => '1080',      
+            'og:image:height' => '1080',     
+        ];
+        // --- FIM DA PREPARAÇÃO OG ---
+
+        $metaData = [
+            'description' => 'Consulte informações completas sobre a empresa' . $empresa->razao_social
+                        . ', CNPJ ' . $this->formatarCnpj($cnpjApenasNumeros)
+                        . '.',
+            
+            'keywords' => implode(', ', array_filter([
+                $empresa->razao_social,
+                $estabelecimento->nome_fantasia,
+                'cnpj ' . $this->formatarCnpj($cnpjApenasNumeros),
+                'consulta cnpj',
+                $cnpjApenasNumeros,
+                $this->formatarCnpj($cnpjApenasNumeros)
+            ]))
+        ];
+
         // Prepara os dados para os cards
         $dadosParaExibir = [
             // Card: Informações do CNPJ (dados existentes)
@@ -182,7 +242,13 @@ class CnpjController extends Controller
             'similar_context' => [
                 'cnae_descricao' => $cnaePrincipal->descricao ?? 'Não informado',
                 'cidade' => $estabelecimento->municipioRel->descricao ?? 'região'
-            ]
+            ],
+
+            'structured_data' => $structuredData,
+
+            'og_data' => $ogData,
+
+            'meta_data' => $metaData
         ];
 
         return view('cnpj.show', ['data' => $dadosParaExibir]);
